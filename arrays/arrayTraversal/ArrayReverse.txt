@@ -1,0 +1,22 @@
+1. Reverse traversal
+
+You don't change the array. You simply visit its elements from right to left.
+
+int[] arr = {10, 20, 30, 40, 50};
+
+for (int i = arr.length - 1; i >= 0; i--) {
+    System.out.print(arr[i] + " ");
+}
+
+Output:
+
+50 40 30 20 10
+
+But the array is still:
+
+10 20 30 40 50
+
+So:
+
+Reverse traversal = read/visit the array backwards.
+
