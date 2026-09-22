@@ -1,0 +1,409 @@
+Different ways to create an array
+
+There are several ways.
+
+Method 1 — Create and initialize together
+int[] arr = {10, 20, 30, 40, 50};
+
+Here Java knows the size automatically.
+
+There are 5 elements, so:
+
+arr.length
+
+is:
+
+5
+4. Understanding this statement
+
+Let's break:
+
+int[] arr = {10, 20, 30};
+
+into parts.
+
+int
+int
+
+means the array will store integers.
+
+So this is valid:
+
+int[] arr = {10, 20, 30};
+
+But this isn't:
+
+int[] arr = {10, 20, "Hello"};
+
+because "Hello" is a String.
+
+[]
+int[]
+
+means:
+
+This is an array whose elements are integers.
+
+You can also write:
+
+int arr[];
+
+This is valid Java, but the preferred style is:
+
+int[] arr;
+arr
+
+This is the reference variable.
+
+int[] arr;
+
+Think of arr as a variable that refers to an integer array.
+
+=
+
+Assignment:
+
+=
+
+means we're assigning the array reference to arr.
+
+{10, 20, 30}
+
+These are the values stored in the array.
+
+So:
+
+int[] arr = {10, 20, 30};
+
+creates an array and initializes it with three values.
+
+5. Creating an array with a specific size
+
+You can also create an array without knowing its values initially:
+
+int[] arr = new int[5];
+
+This means:
+
+Create an integer array capable of storing 5 elements.
+
+Conceptually:
+
+Index:    0    1    2    3    4
+Value:    0    0    0    0    0
+
+For an int array, Java automatically initializes the elements to 0.
+
+6. Why does Java use new?
+
+This is important.
+
+int[] arr = new int[5];
+
+The new keyword tells Java:
+
+Create a new array object in memory.
+
+Conceptually:
+
+              Memory
+          ┌────┬────┬────┬────┬────┐
+          │ 0  │ 0  │ 0  │ 0  │ 0  │
+          └────┴────┴────┴────┴────┘
+            0    1    2    3    4
+             ↑
+             |
+            arr
+
+arr refers to that array.
+
+You don't need to memorize the memory details yet, but understanding that arr refers to the created array is useful.
+
+7. Assigning values later
+
+After:
+
+int[] arr = new int[5];
+
+you can put values into individual positions:
+
+arr[0] = 10;
+arr[1] = 20;
+arr[2] = 30;
+arr[3] = 40;
+arr[4] = 50;
+
+Now:
+
+Index:    0    1    2    3    4
+Value:   10   20   30   40   50
+8. Creation + initialization using new
+
+You can also write:
+
+int[] arr = new int[]{10, 20, 30, 40, 50};
+
+This is valid.
+
+But when declaring the variable directly, this is shorter:
+
+int[] arr = {10, 20, 30, 40, 50};
+
+Both create an array containing the same values.
+
+9. How array indexing works
+
+Suppose:
+
+int[] arr = {10, 20, 30, 40};
+
+Java assigns indexes automatically:
+
+Index:     0     1     2     3
+           ↓     ↓     ↓     ↓
+Value:    10    20    30    40
+
+So:
+
+arr[0] → 10
+arr[1] → 20
+arr[2] → 30
+arr[3] → 40
+
+Why does indexing start at 0?
+
+It's related to how array elements are located relative to the beginning of the array. For DSA, the practical rule you need is simply:
+
+First element = index 0; last element = index length - 1.
+
+10. Array length
+
+Suppose:
+
+int[] arr = {10, 20, 30, 40, 50};
+
+Then:
+
+arr.length
+
+returns:
+
+5
+
+Notice that length is a property, not a method.
+
+Correct:
+
+arr.length
+
+Not:
+
+arr.length()
+
+The last valid index is:
+
+arr.length - 1
+
+So:
+
+length = 5
+last index = 4
+11. Why arrays have fixed size
+
+Suppose you create:
+
+int[] arr = new int[5];
+
+The array can hold exactly 5 elements.
+
+0    1    2    3    4
+
+You cannot directly make it 6 elements:
+
+arr[5] = 60;   
+
+This causes:
+
+ArrayIndexOutOfBoundsException
+
+If you need a dynamically growing collection, Java provides things such as ArrayList.
+
+But for DSA, understanding fixed-size arrays first is important.
+
+12. Different data types
+
+Arrays can store different data types.
+
+Integer
+int[] arr = {10, 20, 30};
+Double
+double[] arr = {10.5, 20.5, 30.5};
+Character
+char[] arr = {'A', 'B', 'C'};
+Boolean
+boolean[] arr = {true, false, true};
+String
+String[] names = {"Suraj", "Rahul", "Amit"};
+
+The important rule is:
+
+All elements in a normal Java array must be compatible with the array's declared type.
+
+13. Default values
+
+When you create an array using new, Java gives elements default values.
+
+int
+int[] arr = new int[3];
+0  0  0
+double
+double[] arr = new double[3];
+0.0  0.0  0.0
+boolean
+boolean[] arr = new boolean[3];
+false  false  false
+Reference types
+
+For example:
+
+String[] arr = new String[3];
+
+Initially:
+
+null  null  null
+14. The connection between creation and traversal
+
+This is very important for your DSA learning.
+
+First you create the array:
+
+int[] arr = {10, 20, 30, 40, 50};
+
+Then you traverse it:
+
+for (int i = 0; i < arr.length; i++) {
+    System.out.println(arr[i]);
+}
+
+The overall process is:
+
+Create
+  ↓
+Store elements
+  ↓
+Access using index
+  ↓
+Traverse
+  ↓
+Perform operations
+
+For example:
+
+int[] arr = new int[5];
+
+arr[0] = 10;
+arr[1] = 20;
+arr[2] = 30;
+arr[3] = 40;
+arr[4] = 50;
+
+for (int i = 0; i < arr.length; i++) {
+    System.out.println(arr[i]);
+}
+15. Array creation logic
+
+Let's understand this:
+
+int[] arr = new int[5];
+
+Think of the logic as:
+
+Step 1
+int[]
+
+Tell Java:
+
+I want an array that stores integers.
+
+Step 2
+new
+
+Tell Java:
+
+Create a new array object.
+
+Step 3
+int[5]
+
+Tell Java:
+
+Give me space for 5 integers.
+
+Step 4
+arr =
+
+Store the reference to that array in arr.
+
+So conceptually:
+
+int[] arr = new int[5];
+
+       arr
+        │
+        ▼
+   ┌────┬────┬────┬────┬────┐
+   │ 0  │ 0  │ 0  │ 0  │ 0  │
+   └────┴────┴────┴────┴────┘
+     0    1    2    3    4
+
+Then:
+
+arr[2] = 100;
+
+changes it to:
+
+   ┌────┬────┬─────┬────┬────┐
+   │ 0  │ 0  │ 100 │ 0  │ 0  │
+   └────┴────┴─────┴────┴────┘
+     0    1     2    3    4
+16. Your DSA ArrayCreation class
+
+Since you're organizing your GitHub repository into packages, you could write:
+
+package arrays.creation;
+
+public class ArrayCreation {
+
+    public static int[] createArray() {
+
+        int[] arr = new int[5];
+
+        arr[0] = 10;
+        arr[1] = 20;
+        arr[2] = 30;
+        arr[3] = 40;
+        arr[4] = 50;
+
+        return arr;
+    }
+}
+
+And a Main class:
+
+package arrays.creation;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        int[] arr = ArrayCreation.createArray();
+
+        for (int i = 0; i < arr.length; i++) {
+            System.out.print(arr[i] + " ");
+        }
+    }
+}
+
+Output:
+
+10 20 30 40 50
