@@ -1,0 +1,367 @@
+1. What is array traversal?
+
+Array traversal means visiting/accessing each element of an array one by one.
+
+For example:
+
+int[] arr = {10, 20, 30, 40, 50};
+
+The indexes are:
+
+Value:   10   20   30   40   50
+Index:    0    1    2    3    4
+
+Traversal means:
+
+10 → 20 → 30 → 40 → 50
+
+We access each element using its index.
+
+2. Basic traversal logic
+
+The most common logic is:
+
+for (int i = 0; i < arr.length; i++) {
+    System.out.println(arr[i]);
+}
+
+There are three important parts:
+
+for (int i = 0; i < arr.length; i++)
+int i = 0
+
+We start from index 0.
+
+arr[0] → 10
+i < arr.length
+
+Suppose:
+
+arr.length = 5
+
+Valid indexes are:
+
+0, 1, 2, 3, 4
+
+Therefore we use:
+
+i < 5
+
+not:
+
+i <= 5
+
+Because arr[5] doesn't exist.
+
+i++
+
+After processing one element, increase the index:
+
+i = 0
+i = 1
+i = 2
+i = 3
+i = 4
+3. Understanding arr[i]
+
+This is the most important part.
+
+Suppose:
+
+int[] arr = {10, 20, 30, 40, 50};
+
+When:
+
+i = 0
+
+we get:
+
+arr[0] = 10
+
+When:
+
+i = 1
+
+we get:
+
+arr[1] = 20
+
+And so on:
+
+i       arr[i]
+
+0  →    10
+1  →    20
+2  →    30
+3  →    40
+4  →    50
+
+So the loop is basically saying:
+
+Start at the first element, visit it, move to the next index, visit it, and continue until the last element.
+
+4. Your ArrayTraversal class
+
+Your code was:
+
+package arrays.traversal;
+
+public class ArrayTraversal {
+
+    public static void traverseArray(int[] arr, int n) {
+
+        System.out.println("Array elements are:");
+
+        for (int i = 0; i < n; i++) {
+            System.out.print(arr[i] + ", ");
+        }
+    }
+}
+
+Let's understand it line by line.
+
+Package
+package arrays.traversal;
+
+This tells Java that the class belongs to the arrays.traversal package.
+
+Class
+public class ArrayTraversal
+
+This defines your class.
+
+Method
+public static void traverseArray(int[] arr, int n)
+
+You're creating a method that receives:
+
+arr → the actual array
+n   → number of elements you want to traverse
+
+For example:
+
+int[] arr = {10, 20, 30, 40, 50};
+
+ArrayTraversal.traverseArray(arr, 5);
+
+Here:
+
+arr = {10,20,30,40,50}
+n = 5
+
+Then:
+
+for (int i = 0; i < n; i++)
+
+runs five times.
+
+5. Dry run of your code
+
+Suppose:
+
+int[] arr = {10, 20, 30, 40, 50};
+
+and:
+
+n = 5
+First iteration
+i = 0
+
+Condition:
+
+0 < 5 → true
+
+Execute:
+
+arr[0]
+
+Output:
+
+10
+
+Then:
+
+i++
+
+so:
+
+i = 1
+Second iteration
+1 < 5 → true
+arr[1]
+
+Output:
+
+20
+Third
+i = 2
+arr[2] = 30
+Fourth
+i = 3
+arr[3] = 40
+Fifth
+i = 4
+arr[4] = 50
+Sixth check
+i = 5
+
+5 < 5 → false
+
+Loop stops.
+
+Final output:
+
+10, 20, 30, 40, 50,
+6. Why I recommend arr.length
+
+Instead of:
+
+public static void traverseArray(int[] arr, int n)
+
+you can simply use:
+
+public static void traverseArray(int[] arr)
+
+because Java already knows the size of the array.
+
+arr.length
+
+So:
+
+public static void traverseArray(int[] arr) {
+
+    for (int i = 0; i < arr.length; i++) {
+        System.out.print(arr[i] + ", ");
+    }
+}
+
+This is safer.
+
+For example, if you accidentally do:
+
+int[] arr = {10, 20, 30};
+ArrayTraversal.traverseArray(arr, 10);
+
+your original code will eventually try:
+
+arr[3]
+
+and produce:
+
+ArrayIndexOutOfBoundsException
+
+Using:
+
+i < arr.length
+
+prevents this.
+
+7. Another way: enhanced for loop
+
+Java also provides:
+
+for (int element : arr) {
+    System.out.println(element);
+}
+
+For:
+
+int[] arr = {10, 20, 30, 40, 50};
+
+it automatically gives:
+
+element = 10
+element = 20
+element = 30
+element = 40
+element = 50
+
+This is called the enhanced for loop / for-each loop.
+
+But for learning DSA, I recommend understanding the traditional loop first:
+
+for (int i = 0; i < arr.length; i++)
+
+because you need indexes for many algorithms.
+
+8. Why traversal is important in DSA
+
+Array traversal is one of the fundamental operations in DSA.
+
+Once you understand:
+
+for (int i = 0; i < arr.length; i++)
+
+you can build many algorithms from it.
+
+Find maximum
+int max = arr[0];
+
+for (int i = 1; i < arr.length; i++) {
+    if (arr[i] > max) {
+        max = arr[i];
+    }
+}
+Find minimum
+int min = arr[0];
+
+for (int i = 1; i < arr.length; i++) {
+    if (arr[i] < min) {
+        min = arr[i];
+    }
+}
+Calculate sum
+int sum = 0;
+
+for (int i = 0; i < arr.length; i++) {
+    sum += arr[i];
+}
+Count even numbers
+int count = 0;
+
+for (int i = 0; i < arr.length; i++) {
+    if (arr[i] % 2 == 0) {
+        count++;
+    }
+}
+
+Notice that all of these use the same fundamental idea:
+
+Start
+  ↓
+index = 0
+  ↓
+Access arr[index]
+  ↓
+Perform some operation
+  ↓
+index++
+  ↓
+More elements?
+  ↓
+Yes → repeat
+No  → stop
+9. Time and space complexity
+
+For an array of n elements, traversal visits every element once.
+
+Therefore:
+
+Time complexity:
+
+O(n)
+
+Extra space:
+
+O(1)
+
+because we only use a variable such as i (ignoring the input array itself).
+
+The key idea to remember
+
+Array traversal = systematically visiting every array element, usually from index 0 to n-1.
+
+The core pattern you should remember for DSA is:
+for (int i = 0; i < arr.length; i++) {
+    // work with arr[i]
+}
