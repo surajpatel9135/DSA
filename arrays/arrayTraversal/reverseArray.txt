@@ -1,0 +1,276 @@
+1. What does "reverse an array" mean?
+Suppose:
+Original:
+[10, 20, 30, 40, 50]
+
+After reversing:
+[50, 40, 30, 20, 10]
+
+The important point is:
+Every element changes its position.
+
+The first element goes to the last position, the second goes to the second-last position, and so on.
+Think of the positions:
+Original:
+
+Index:    0    1    2    3    4
+          ↓    ↓    ↓    ↓    ↓
+Value:   10   20   30   40   50
+
+Reverse:
+
+Index:    0    1    2    3    4
+          ↓    ↓    ↓    ↓    ↓
+Value:   50   40   30   20   10
+
+2. The fundamental logic
+The simplest way to think about reversing is:
+First  ↔ Last
+Second ↔ Second-last
+Third  ↔ Third-last
+
+For our array:
+10  20  30  40  50
+↑                   ↑
+First              Last
+
+Swap them:
+50  20  30  40  10
+
+Then:
+50  20  30  40  10
+    ↑           ↑
+  Second      Second-last
+
+Swap:
+50  40  30  20  10
+
+Now the middle element 30 is already in the correct position.
+So we're done.
+3. Why do we use two pointers?
+We use two pointers because we need to work from both ends of the array.
+We call them:
+left
+right
+
+Initially:
+left = 0
+right = arr.length - 1
+
+For:
+[10, 20, 30, 40, 50]
+
+we have:
+left                    right
+ ↓                        ↓
+10   20   30   40   50
+
+The left pointer represents the position that needs to receive the value from the right.
+The right pointer represents the position that needs to receive the value from the left.
+4. What happens during one swap?
+Suppose:
+left = 0
+right = 4
+
+So:
+arr[left]  = 10
+arr[right] = 50
+
+We want:
+50 ... 10
+
+In other words:
+arr[left] ↔ arr[right]
+
+But we can't safely exchange two values with only two assignments because we'd lose one of the values.
+So we use a temporary variable.
+Conceptually:
+temp = left value
+left = right value
+right = temp
+
+For our example:
+temp = 10
+arr[0] = 50
+arr[4] = 10
+
+Result:
+50 20 30 40 10
+
+5. Move the pointers inward
+After swapping the outer elements, those positions are finished.
+So we move:
+left  → right
+right → left
+
+In code:
+left++
+right--
+
+Now:
+        left       right
+          ↓         ↓
+50   20   30   40   10
+
+Then swap:
+20 ↔ 40
+
+Result:
+50 40 30 20 10
+
+Move again:
+          left/right
+              ↓
+50 40 30 20 10
+
+The pointers have met, so there is nothing else to swap.
+6. Why do we stop when left >= right?
+The condition is usually:
+left < right
+
+Why?
+Because once the pointers meet:
+left == right
+
+we are looking at the middle element.
+For example:
+10 20 30 40 50
+      ↑
+     both
+
+There is no reason to swap:
+30 ↔ 30
+
+So we stop.
+For an even-sized array:
+10 20 30 40
+      ↑  ↑
+     left right
+
+Eventually the pointers cross.
+Therefore:
+Keep swapping while left < right.
+
+7. The complete logical algorithm
+Before writing code, you should be able to explain the algorithm like this:
+Step 1
+Start left at the first index.
+left = 0
+
+Step 2
+Start right at the last index.
+right = length - 1
+
+Step 3
+Compare the positions:
+left < right?
+
+Step 4
+If yes, swap:
+arr[left] ↔ arr[right]
+
+Step 5
+Move both pointers toward the center:
+left++
+right--
+
+Step 6
+Repeat until:
+left >= right
+
+Step 7
+The array is reversed.
+8. Think about it as a mirror
+A very useful mental model is a mirror.
+Original:
+10  20  30  40  50
+
+The mirror mapping is:
+10 → position 4
+20 → position 3
+30 → position 2
+40 → position 1
+50 → position 0
+
+So the position mapping is:
+0 ↔ 4
+1 ↔ 3
+2 ↔ 2
+3 ↔ 1
+4 ↔ 0
+
+In general:
+index i ↔ index (n - 1 - i)
+
+This is an important mathematical way to understand array reversal.
+For an array of length 5:
+i = 0
+5 - 1 - 0 = 4
+
+So:
+index 0 ↔ index 4
+
+For:
+i = 1
+
+we get:
+5 - 1 - 1 = 3
+
+So:
+index 1 ↔ index 3
+
+And:
+i = 2
+5 - 1 - 2 = 2
+
+The middle element maps to itself.
+9. Why not create another array?
+You could create a second array:
+Original: [10, 20, 30, 40, 50]
+
+New:      [50, 40, 30, 20, 10]
+
+But this requires additional memory.
+The two-pointer approach reverses the array inside the same array:
+Original array
+      ↓
+[10, 20, 30, 40, 50]
+      ↓
+swap
+      ↓
+[50, 20, 30, 40, 10]
+      ↓
+swap
+      ↓
+[50, 40, 30, 20, 10]
+
+This is called an in-place reversal.
+Complexity
+For n elements:
+Time  = O(n)
+Space = O(1)
+
+We visit roughly half the elements, but in Big-O notation that is still O(n).
+10. The key concept to remember
+Don't memorize the code first. Memorize this:
+To reverse an array, exchange elements symmetrically from the two ends and move toward the center.
+
+The pattern is:
+FIRST ↔ LAST
+   ↓
+SECOND ↔ SECOND-LAST
+   ↓
+THIRD ↔ THIRD-LAST
+   ↓
+...
+   ↓
+CENTER
+
+And the algorithm becomes:
+left = first index
+right = last index
+
+while left < right:
+    swap arr[left] and arr[right]
+    left++
+    right--
