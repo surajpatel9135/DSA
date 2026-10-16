@@ -17,5 +17,7 @@ public class Main {
 
         ArrayTraversal.traverseArray(arr, n);
         ReverseArrayTraversal.reverseArray(arr);
+        System.out.println();
+        ArrayReverse.reverseArray(arr);
     }
 }
