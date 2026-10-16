@@ -1,0 +1,22 @@
+package CollectionFrameworks.List;
+
+import java.util.*;
+
+public class ArrayList1 {
+    public static void main(String[] args) {
+
+        Collection<Integer> c = new ArrayList<Integer>(); 
+        
+        c.add(10);
+        c.add(20);
+        c.add(30);
+        c.add(40);
+        c.add(50);
+
+        Iterator<Integer> it = c.iterator();
+
+        while (it.hasNext()) {
+            System.out.println(it.next());
+        }
+    }
+}
